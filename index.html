@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>Jackie's Webbed Site</title>
@@ -27,19 +28,21 @@
             <p>I'm Jackie, I do stuff and things.</p>
             <h2>Links</h2>
             <ul style="width: fit-content; margin-left: auto; margin-right: auto; text-align: left;">
-                <li> If you want to borrow a book from me, check out my <a target="_blank" href="https://www.librarycat.org/lib/DrJackie">TinyCat</a> </li>
+                <li>If you want to borrow a book from me, check out my <a target="_blank" href="https://www.librarycat.org/lib/DrJackie">TinyCat</a> </li>
                 <li>If you want to look at whatever I decided to reblog today, check out my <a target="_blank" href="https://dr-jackie.tumblr.com/">Tumblr</a></li>
                 <li id="Mirror">This website is also available on</li>
                 <script>
                     if ( window.location.hostname != "drjackie.neocities.org") {
-                        document.getElementById("Mirror").insertAdjacentHTML('beforeend', ` <a href="https://drjackie.neocities.org/">Neocities</a>`)
+                        document.getElementById("Mirror").insertAdjacentHTML('beforeend', ` <a target="_blank" href="https://drjackie.neocities.org/">Neocities</a>`)
                     }                    
                     if ( window.location.hostname != "drjackie.gay") {
-                        document.getElementById("Mirror").insertAdjacentHTML('beforeend', ` <a href="https://drjackie.gay">DrJackie.gay</a>`)
+                        document.getElementById("Mirror").insertAdjacentHTML('beforeend', ` <a target="_blank" href="https://drjackie.gay">DrJackie.gay</a>`)
                     }
                 </script>
+                <li>See what I'm listening to on <a target="_blank" href="https://www.last.fm/user/Dr-Jackie">Last.Fm</a></li>
             </ul>
         </div>
+
 
         <div class="cli main">
             <p style="margin-top: 0px;margin-bottom: 0px;">
@@ -51,26 +54,34 @@
         <div class="main fire" id="blinkies">
             <div class="blinkies" id="blinkies">
                  <script>
-                for (let index = 1; index < 999; index++) {
-                    var img = document.createElement("img")
-                    img.height = 56
-                    img.width = 99
-                    var extensions = ["png", "gif", "jpg", "jpeg"]
-                    for (let ext_index = 0; ext_index < extensions.length; ext_index++) {
-                        img.src = `/images/blinkies/${index}.${extensions[ext_index]}`
-                        if(UrlExists(img.src)) {
-                            break;
-                        } 
+                    const extensions = ["png", "gif", "jpeg", "jpg"]
+                    let index = 1
+                    let ext_index = 0
+                    tryBlinky()
+                    function tryBlinky() {
+                        let test_url = `/images/blinkies/${index}.${extensions[ext_index]}`
+                        const http = new XMLHttpRequest();
+                        http.open('HEAD', test_url, true);
+                        http.send();
+                        http.onload = () => {
+                            // console.log(http);
+                            if (http.status!=404) {
+                                var img = document.createElement("img")
+                                img.height = 56
+                                img.width = 99
+                                img.src = http.responseURL
+                                document.getElementById("blinkies").appendChild(img)
+                                index++
+                                ext_index = 0
+                                tryBlinky()
+                            } else {
+                                if (ext_index < extensions.length - 1) {
+                                    ext_index++
+                                    tryBlinky()
+                                }
+                            }
+                        }
                     }
-                    if (!UrlExists(img.src)) break
-                    document.getElementById("blinkies").appendChild(img)
-                }
-                function UrlExists(url) {
-                    var http = new XMLHttpRequest();
-                    http.open('HEAD', url, false);
-                    http.send();
-                    return http.status!=404;
-                }
             </script>
             </div>
             <footer style="font-size:x-small; font-family:sans-serif; text-shadow: 0px 1px black;">
