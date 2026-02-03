@@ -20,7 +20,7 @@ jobs:
     - name: Copy Files to Public
       run: |
         mkdir public
-        cp -R index.html style.css images public/
+        cp -R *.html *.css images public/
     # When the dist_dir is ready, deploy it to neocities
     # Here we deploy the folder named `public`
     - name: Deploy to neocities
