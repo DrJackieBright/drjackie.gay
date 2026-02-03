@@ -19,6 +19,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Copy Files to Public
       run: |
+        mkdir public
         cp -R index.html style.css images public/
     # When the dist_dir is ready, deploy it to neocities
     # Here we deploy the folder named `public`
