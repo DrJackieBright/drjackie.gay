@@ -3,22 +3,70 @@
         <title>Jackie's Webbed Site</title>
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
-        <meta content="DrJackie.Gay" property="og:title" />
-        <meta content="Jackie's Webbed Site" property="og:description" />
-        <meta content="https://DrJackie.Gay" property="og:url" />
-        <meta content="https://DrJackie.Gay/images/favicon.ico" property="og:image" />
-        <meta content="#b00b13" data-react-helmet="true" name="theme-color" />
+        <link rel="stylesheet" href="style.css">
+        <meta content="DrJackie.Gay" property="og:title">
+        <meta content="Jackie's Webbed Site" property="og:description">
+        <meta content="https://DrJackie.Gay" property="og:url">
+        <meta content="https://DrJackie.Gay/images/favicon.ico" property="og:image">
+        <meta content="#b00b13" data-react-helmet="true" name="theme-color">
     </head>
+
     <body>
-        <h1>Welcome to DrJackie.Gay</h1>
+
+        <div class="background">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="main">
+            <h1>Welcome to DrJackie.Gay</h1>
             <h2>About Me</h2>
-                <p>
-                    I'm Jackie, I do stuff and things. 
-                </p>
+            <p>I'm Jackie, I do stuff and things.</p>
             <h2>Links</h2>
-            <ul>
-                <li> If you want to borrow a book from me, check out my <a href="https://www.librarycat.org/lib/DrJackie">TinyCat</a> </li>
-                <li>If you want to look at whatever I decided to reblog today, check out my <a href="">Tumblr</a></li>
+            <ul style="width: fit-content; margin-left: auto; margin-right: auto; text-align: left;">
+                <li> If you want to borrow a book from me, check out my <a target="_blank" href="https://www.librarycat.org/lib/DrJackie">TinyCat</a> </li>
+                <li>If you want to look at whatever I decided to reblog today, check out my <a target="_blank" href="https://dr-jackie.tumblr.com/">Tumblr</a></li>
             </ul>
+        </div>
+
+        <div class="cli main">
+            <p style="margin-top: 0px;margin-bottom: 0px;">
+            C:/&gt; HELLOWORLD.SH <br>
+            HELLO WORLD<span class="cursor">_</span>
+            </p>
+        </div>
+
+        <div class="main fire" id="blinkies">
+            <div class="blinkies" id="blinkies">
+                 <script>
+                for (let index = 1; index < 999; index++) {
+                    var img = document.createElement("img")
+                    img.height = 56
+                    img.width = 99
+                    var extensions = ["png", "gif", "jpg", "jpeg"]
+                    for (let ext_index = 0; ext_index < extensions.length; ext_index++) {
+                        img.src = `/images/blinkies/${index}.${extensions[ext_index]}`
+                        if(UrlExists(img.src)) {
+                            break;
+                        } 
+                    }
+                    if (!UrlExists(img.src)) break
+                    document.getElementById("blinkies").appendChild(img)
+                }
+                function UrlExists(url) {
+                    var http = new XMLHttpRequest();
+                    http.open('HEAD', url, false);
+                    http.send();
+                    return http.status!=404;
+                }
+            </script>
+            </div>
+            <footer style="font-size:x-small; font-family:sans-serif; text-shadow: 0px 1px black;">
+                <p>Blinkies via <a target="_blank" href="https://sillyratstampscollection.neocities.org/">Silly Rat Stamps Collection</a>, <a target="_blank" href="https://www.deviantart.com/anonastamps">Anonastamps</a> and <a target="_blank" href="https://adriansblinkiecollection.neocities.org/">Adrians Blinkie Collection</a></p>
+            </footer>
+        </div>
     </body>
 </html>
