@@ -74,28 +74,56 @@
 
 body {
   color: white;
+  margin: 0px;
+  cursor: url('/images/whitepaw.cur'), auto;
+
 }
 
 a {
   color: salmon;
+  cursor: url('/images/orangepaw.cur'), pointer;
+}
+
+.sidebar {
+	background-color: black;
+	min-width: 150px;
+    width: 170px;
+    max-width: 100%;
+    max-height: calc(100vh - 10px);
+    min-height: 300px;
+	text-align: center;
+    list-style-position: inside;
+	border: 5px groove #676767;
+    padding: 5px;
+    padding-bottom: 3px;
+    margin: 5px;
+    box-sizing: border-box;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    position: sticky;
+    top: 5px;
+}
+
+@media screen and (max-width: 1190px) {
+  .sidebar {display: none !important;}
 }
 
 .main {
 	background-color: black;
-    min-width: 75vw;
-	width: 95vw;
-    max-width: 75vh;
-    margin-left: auto;
-    margin-right: auto;
+    /* min-width: 40vw; */
+	width: 1000px;
+    max-width: 95vw;
 	text-align: center;
     list-style-position: inside;
-	border: 7px groove #676767;
-	margin-bottom: 1vh;
+	border: 5px groove #676767;
+	margin: 5px;
     box-sizing: border-box;
 }
 
 .cli {
-    padding: 1vh;
+    padding: 10px;
 	text-align: left;
     font-family: monospace;
     font-size: 12pt;
@@ -137,6 +165,5 @@ a {
 }
 
 .blinkies>img {
-    margin-left: .25em;
-    margin-right: .25em;
+    margin: 3px;
 }

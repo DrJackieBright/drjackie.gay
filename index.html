@@ -22,26 +22,35 @@
             <span></span>
         </div>
 
-        <div class="main">
-            <h1>Welcome to DrJackie.Gay</h1>
-            <h2>About Me</h2>
-            <p>I'm Jackie, I do stuff and things.</p>
-            <h2>Links</h2>
-            <ul style="width: fit-content; margin-left: auto; margin-right: auto; text-align: left;">
-                <li>If you want to borrow a book from me, check out my <a target="_blank" href="https://www.librarycat.org/lib/DrJackie">TinyCat</a> </li>
-                <li>If you want to look at whatever I decided to reblog today, check out my <a target="_blank" href="https://dr-jackie.tumblr.com/">Tumblr</a></li>
-                <li id="Mirror">This website is also available on</li>
-                <script>
-                    if ( window.location.hostname != "drjackie.neocities.org") {
-                        document.getElementById("Mirror").insertAdjacentHTML('beforeend', ` <a target="_blank" href="https://drjackie.neocities.org/">Neocities</a>`)
-                    }                    
-                    if ( window.location.hostname != "drjackie.gay") {
-                        document.getElementById("Mirror").insertAdjacentHTML('beforeend', ` <a target="_blank" href="https://drjackie.gay">DrJackie.gay</a>`)
-                    }
-                </script>
-                <li>See what I'm listening to on <a target="_blank" href="https://www.last.fm/user/Dr-Jackie">Last.Fm</a></li>
-            </ul>
-        </div>
+        <div class="wrapper" style="display: flex; justify-content: center;">
+            <div class="sidebar">
+                <img src="/images/45252_i9ysRkai.png" width="100px" style="margin-top: 18px;">
+                <h3>DrJackie.Gay</h3>
+                <div class="blinkies" id="blinkies" style="margin-top: auto;">
+                    <script> fillBlinkies("blinkies", "images/blinkies", 20, 150) </script>
+                </div>
+            </div>
+            <div style="display: flex; flex-direction: column;">
+                <div class="main">
+                    <h1>Welcome to DrJackie.Gay</h1>
+                    <h2>About Me</h2>
+                    <p>I'm Jackie, I do stuff and things.</p>
+                    <h2>Links</h2>
+                    <ul style="width: fit-content; margin-left: auto; margin-right: auto; text-align: left;">
+                        <li>If you want to borrow a book from me, check out my <a target="_blank" href="https://www.librarycat.org/lib/DrJackie">TinyCat</a> </li>
+                        <li>If you want to look at whatever I decided to reblog today, check out my <a target="_blank" href="https://dr-jackie.tumblr.com/">Tumblr</a></li>
+                        <li id="Mirror">This website is also available on</li>
+                        <script>
+                            if ( window.location.hostname != "drjackie.neocities.org") {
+                                document.getElementById("Mirror").insertAdjacentHTML('beforeend', ` <a target="_blank" href="https://drjackie.neocities.org/">Neocities</a>`)
+                            }                    
+                            if ( window.location.hostname != "drjackie.gay") {
+                                document.getElementById("Mirror").insertAdjacentHTML('beforeend', ` <a target="_blank" href="https://drjackie.gay">DrJackie.gay</a>`)
+                            }
+                        </script>
+                        <li>See what I'm listening to on <a target="_blank" href="https://www.last.fm/user/Dr-Jackie">Last.Fm</a></li>
+                    </ul>
+                </div>
 
 
         <div class="cli main">
