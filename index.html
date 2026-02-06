@@ -13,6 +13,8 @@
     </head>
 
     <body>
+        <script src="script.js"></script> 
+
 <!-- Props to https://wweb.dev/resources/animated-css-background-generator -->
         <div class="background">
             <span></span>
@@ -53,55 +55,28 @@
                 </div>
 
 
-        <div class="cli main">
-            <p style="margin-top: 0px;margin-bottom: 0px;">
-            C:/&gt; HELLOWORLD.SH <br>
-            HELLO WORLD<span class="cursor">_</span>
-            </p>
-        </div>
+                <div class="cli main">
+                    <p style="margin-top: 0px;margin-bottom: 0px;">
+                    C:/&gt; HELLOWORLD.SH <br>
+                    HELLO WORLD [TODO: Make this interactive]<span class="cursor">_</span>
+                    </p>
+                </div>
 
-        <div class="main fire">
-            <div class="blinkies" id="blinkies">
-                 <script>
-                    const extensions = ["png", "gif", "jpg"]
-                    const threads = Math.floor(navigator.hardwareConcurrency / 2)
-                    var knownLimit = Infinity
-                    for (let index = 1; index <= threads; index++) {
-                        tryBlinky(index,threads,0)   
-                    }
-                    async function tryBlinky(index, jumpSize, ext_index) {
-                        if (index > knownLimit) { return }     
-                        // console.log(index, knownLimit, ext_index)
-                        let test_url = `/images/blinkies/${index}.${extensions[ext_index]}`
-                        const http = new XMLHttpRequest();
-                        http.open('HEAD', test_url, true);
-                        http.send();
-                        http.onload = () => {
-                            // console.log(http);
-                            if (http.status!=404) {
-                                var img = document.createElement("img")
-                                img.height = 56
-                                img.width = 99
-                                img.src = http.responseURL
-                                document.getElementById("blinkies").appendChild(img)
-                                tryBlinky(index + jumpSize, jumpSize, 0)
-                            } else {
-                                if (ext_index < extensions.length - 1) {
-                                    tryBlinky(index, jumpSize, ext_index + 1)
-                                } else {
-                                    if (index < knownLimit) {
-                                        // console.log(index)
-                                        knownLimit = index
-                                    }
-                                }
-                            }
-                        }
-                    }
-            </script>
+                <div class="embed main" style="overflow: hidden; height: 125px">
+                    <iframe style="width: 100%; height: fit-content; border: 0;" src='https://scrobble.observer/user/Dr-Jackie?theme=plain&dark'></iframe>
+                </div>
+                
+                <div class="main fire">
+                    <div class="blinkies" id="blinkies-stamps">
+                        <script> fillBlinkies("blinkies-stamps", "images/blinkies/stamps", 56, 99) </script>
+                    </div>
+                    <footer style="font-size:x-small; font-family:sans-serif; text-shadow: 0px 1px black;">
+                        <p>Blinkies via <a target="_blank" href="https://blinkies.cafe">Blinkies.Cafe</a>, <a target="_blank" href="https://sillyratstampscollection.neocities.org/">Silly Rat Stamps Collection</a>, <a target="_blank" href="https://www.deviantart.com/anonastamps">Anonastamps</a> and <a target="_blank" href="https://adriansblinkiecollection.neocities.org/">Adrians Blinkie Collection</a></p>
+                    </footer>
+                </div>
             </div>
-            <footer style="font-size:x-small; font-family:sans-serif; text-shadow: 0px 1px black;">
-                <p>Blinkies via <a target="_blank" href="https://sillyratstampscollection.neocities.org/">Silly Rat Stamps Collection</a>, <a target="_blank" href="https://www.deviantart.com/anonastamps">Anonastamps</a> and <a target="_blank" href="https://adriansblinkiecollection.neocities.org/">Adrians Blinkie Collection</a></p>
-            </footer>
+            <!-- <div class="sidebar">
+            </div> -->
         </div>
     </body>
 </html>
