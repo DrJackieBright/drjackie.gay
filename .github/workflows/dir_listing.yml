@@ -1,3 +1,5 @@
+name: Create Directory Listings
+
 on:
   push:
     branches:
