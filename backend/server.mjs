@@ -1,6 +1,6 @@
 import express from 'express'
+import cors from 'cors'
 import https from 'https'
-import fs from 'fs'
 
 const app = express();
 const port = 8888;
@@ -11,29 +11,7 @@ var lastfm = {
   user: 'Dr-Jackie'
 };
 
-app.get("/blinkies", (req, res) => {
-  const validExts = [".gif", ".png", ".jpg", ".jpeg"]
-  const blinkieTypes = ["blinkies", "stamps"]
-
-  fs.readdir("images/blinkies", {withFileTypes: true, recursive: true} ,(err, files) => {
-    files=files.filter((file) => {
-      if (!file.isFile()) {
-        return false
-      }
-      for (const index in validExts) {
-        if (file.name.toLowerCase().endsWith(validExts[index])) {
-          return true
-        }
-      }
-      return false
-    })
-    var listing = {}
-    for (const index in blinkieTypes) {
-      listing[blinkieTypes[index]]=files.filter((file) => file.parentPath.endsWith(blinkieTypes[index])).map((file) => `${file.parentPath}\\${file.name}`)
-    }
-    res.send(listing)
-  });
-})
+app.use(cors())
 
 app.get("/lastScrobble", (req, res) => {
   let lastFMOutput = '';
