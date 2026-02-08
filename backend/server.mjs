@@ -6,7 +6,7 @@ const app = express();
 const port = 8888;
 
 var lastfm = {
-  api_key: process.env.Last-FM-Key,
+  api_key: process.env["Last-FM-Key"],
   user: 'Dr-Jackie'
 };
 
