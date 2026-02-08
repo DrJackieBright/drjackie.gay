@@ -43,8 +43,8 @@
   ]},
     {"type":"file","name":"favicon.ico"},
     {"type":"file","name":"index.json"},
-    {"type":"file","name":"orangepaw.cur"},
-    {"type":"file","name":"whitepaw.cur"}
+    {"type":"file","name":"orangepaw.ico"},
+    {"type":"file","name":"whitepaw.ico"}
   ]}
 ,
   {"type":"report","directories":3,"files":39}
