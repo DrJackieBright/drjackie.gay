@@ -29,6 +29,7 @@
                 <img src="/images/45252_i9ysRkai.png" width="100px" style="margin-top: 18px;">
                 <h3>DrJackie.Gay</h3>
                 <div class="blinkies" id="blinkies" style="margin-top: auto;">
+                    <img alt="GitHub last commit" width=150 height=20 src="https://img.shields.io/github/last-commit/DrJackieBright/drjackie.gay?display_timestamp=author&style=for-the-badge&logo=github">
                     <script> fillBlinkies("blinkies", "blinkies", 20, 150) </script>
                 </div>
             </div>
@@ -62,8 +63,22 @@
                     </p>
                 </div>
 
-                <div class="embed main" style="overflow: hidden; height: 125px">
-                    <iframe style="width: 100%; height: fit-content; border: 0;" src='https://scrobble.observer/user/Dr-Jackie?theme=plain&dark'></iframe>
+                <!-- <div class="main embed tumblr">
+                    <script type='text/javascript' src='https://dr-jackie.tumblr.com/js'></script>
+                </div> -->
+
+                <div class="embed main" style="overflow: hidden; height: 125px; display: flex; justify-content: space-between; align-items: center;">
+                    <!-- <iframe id="scrobble-embed" style="width: 45%; height: 115px; border: 0;" src='https://scrobble.observer/user/Dr-Jackie?theme=plain&dark'></iframe> -->
+                    <div style="width: 45%; height: 115px; border: 0; margin: 15px; display: flex; align-items: center;">
+                        <img id="lastfm-cover" height="85" style="margin-right: 15px;">
+                        <div style="text-align: left;">
+                            <p>My last Scrobble was <a id="lastfm-title"></a></p>
+                            <p>by <a id="lastfm-artist"></a></p>
+                            <p>on <a id="lastfm-album"></a></p>
+                        </div>
+                    </div>
+                    <iframe id="spotify-embed" data-testid="embed-iframe" style="border: 0; height: 80px; margin-right: 15px;" src="https://open.spotify.com/embed/track/4PTG3Z6ehGkBFwjybzWkR8" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <script>spotifyEmbed()</script>
                 </div>
                 
                 <div class="main fire">
