@@ -1,5 +1,6 @@
+const apiRoot = "https://api.drjackie.gay"
+
 function fillBlinkies(elementID, folder, height=50, width=100) {
-    const extensions = ["png", "gif", "jpg"]
     const http = new XMLHttpRequest();
     http.open('GET', "/images/index.json", true);
     http.send();
