@@ -75,13 +75,13 @@
 body {
   color: white;
   margin: 0px;
-  cursor: url('/images/whitepaw.ico'), auto;
+  cursor: url('/images/whitepaw.png'), auto;
 
 }
 
 a {
   color: salmon;
-  cursor: url('/images/orangepaw.ico'), pointer;
+  cursor: url('/images/orangepaw.png'), pointer;
 }
 
 .sidebar {
