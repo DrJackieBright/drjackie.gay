@@ -3,10 +3,6 @@ var apiRoot = "https://api.drjackie.gay"
 if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
     apiRoot = "http://localhost:8888"
 
-window.onLoad = () => {
-    document.getElementById("lastFM-script").src = `${apiRoot}/lastscrobble.js`
-}
-
 function fillBlinkies(elementID, folder, height=50, width=100) {
     const http = new XMLHttpRequest();
     http.open('GET', "/images/index.json", true);
