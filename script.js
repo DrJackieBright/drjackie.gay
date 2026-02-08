@@ -1,17 +1,19 @@
-var apiRoot = "http://localhost:8888"
-
-function fillBlinkies(elementID, type, height=50, width=100) {
-    const http = new XMLHttpRequest()
-    http.open("GET", `${apiRoot}/blinkies`)
-    http.send()
+function fillBlinkies(elementID, folder, height=50, width=100) {
+    const extensions = ["png", "gif", "jpg"]
+    const http = new XMLHttpRequest();
+    http.open('GET', "/images/index.json", true);
+    http.send();
     http.onload = () => {
         let listing = JSON.parse(http.response)
-        listing[type].sort(() => Math.random() - 0.5);
-        for (const blinkie of listing[type]) {
+        let folderContents = listing.find((element) => element.name == ".").contents
+            .find((element) => element.name == "blinkies").contents
+            .find((element) => element.name == folder).contents
+            .filter((element) => element.type == "file")
+        for (const file of folderContents) {
             var img = document.createElement("img")
             img.height = height
             img.width = width
-            img.src = blinkie
+            img.src = `/images/blinkies/${folder}/${file.name}`
             document.getElementById(elementID).appendChild(img)
         }
     }
