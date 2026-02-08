@@ -40,7 +40,6 @@ app.get("/lastScrobble", (req, res) => {
       })
     });
   })
-
 })
 
 
