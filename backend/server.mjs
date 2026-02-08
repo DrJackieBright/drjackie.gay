@@ -6,8 +6,7 @@ const app = express();
 const port = 8888;
 
 var lastfm = {
-  api_key: '276f7d84bdca67ac53f075785c92533f',
-  secret: 'b8597c9cd3a4ca5a0ff1e3fd0acffe26',
+  api_key: process.env.Last-FM-Key,
   user: 'Dr-Jackie'
 };
 
