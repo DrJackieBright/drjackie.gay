@@ -14,6 +14,26 @@ var lastfm = {
 app.use(cors())
 
 app.get("/lastScrobble", (req, res) => {
+  fetchLastFM((track) => {res.send(track)})
+})
+
+app.get("/lastScrobble.js", (req, res) => {
+  fetchLastFM((track) => {
+    let jsEmbed = `
+let track = JSON.parse('${JSON.stringify(track)}')
+document.getElementById("spotify-embed").src = document.getElementById("spotify-embed").src.replace("4PTG3Z6ehGkBFwjybzWkR8", track.spotify_track_ids[0])
+document.getElementById("lastfm-title").innerText = track.name
+document.getElementById("lastfm-title").href = track.url
+document.getElementById("lastfm-artist").innerText = track.artist["#text"]
+document.getElementById("lastfm-album").innerText = track.album["#text"]
+document.getElementById("lastfm-cover").src = track.image[track.image.length - 1]["#text"]
+    `
+    res.setHeader('Content-Type', 'text/javascript')
+    res.send(jsEmbed)
+  })
+})
+
+function fetchLastFM(callback) {
   let lastFMOutput = '';
   let track = {}
   https.get(new URL(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${lastfm.user}&api_key=${lastfm.api_key}&format=json&limit=1`), (lastFMres) => {
@@ -35,14 +55,14 @@ app.get("/lastScrobble", (req, res) => {
 
         LBres.on('end', () => {
           track.spotify_track_ids = JSON.parse(LBOutput)[0].spotify_track_ids;
-          res.send(track)
+          callback(track)
         });
       })
     });
   })
-})
+}
 
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`listening on port ${port}`);
 }); 
