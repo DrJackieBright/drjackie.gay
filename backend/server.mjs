@@ -18,6 +18,7 @@ app.get("/lastScrobble.js", (req, res) => {
     if (error) {
       console.error(error)
       res.sendStatus(500)
+      return
     }
     let jsEmbed = `
 console.log(\`${response.log.join("\n")}\`)
@@ -31,7 +32,7 @@ document.getElementById("lastfm-album").innerText = track.album["#text"]
 document.getElementById("lastfm-cover").src = track.image[track.image.length - 1]["#text"]
     `
     res.setHeader('Content-Type', 'text/javascript')
-    res.setHeader('Cache-Control', 'max-age=300, stale-while-revalidate=30, stale-if-error=30');
+    res.setHeader('Cache-Control', 'max-age=300, stale-while-revalidate=3600, stale-if-error=3600');
     res.send(jsEmbed)
   })
 })
