@@ -12,14 +12,13 @@ var lastfm = {
 
 app.use(cors())
 
-app.get("/lastScrobble", (req, res) => {
-  fetchLastFM((track) => { res.send(track) })
-})
-
 app.get("/lastScrobble.js", (req, res) => {
   fetchLastFM((response, error) => {
     console.log(response)
-    console.error(error)
+    if (error) {
+      console.error(error)
+      res.sendStatus(500)
+    }
     let jsEmbed = `
 console.log(\`${response.log.join("\n")}\`)
 let track = JSON.parse('${JSON.stringify(response.track).replace("'", "\'")}')
@@ -32,6 +31,7 @@ document.getElementById("lastfm-album").innerText = track.album["#text"]
 document.getElementById("lastfm-cover").src = track.image[track.image.length - 1]["#text"]
     `
     res.setHeader('Content-Type', 'text/javascript')
+    res.setHeader('Cache-Control', 'max-age=300, stale-while-revalidate=30, stale-if-error=30');
     res.send(jsEmbed)
   })
 })
