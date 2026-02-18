@@ -67,17 +67,16 @@
                     <script type='text/javascript' src='https://dr-jackie.tumblr.com/js'></script>
                 </div> -->
 
-                <div class="embed main" style="overflow: hidden; height: 125px; display: flex; justify-content: space-between; align-items: center;">
-                    <!-- <iframe id="scrobble-embed" style="width: 45%; height: 115px; border: 0;" src='https://scrobble.observer/user/Dr-Jackie?theme=plain&dark'></iframe> -->
-                    <div style="width: 45%; height: 115px; border: 0; margin: 15px; display: flex; align-items: center;">
-                        <img id="lastfm-cover" height="85" style="margin-right: 15px;">
-                        <div style="text-align: left;">
+                <div class="embed main" style="overflow: hidden; min-height: 125px; display: flex; align-items: center; flex-wrap: wrap;">
+                    <div style="display: flex; flex-grow: 1;">
+                        <img id="lastfm-cover" height="85" style="margin: 15px;">
+                        <div style="text-align:left;">
                             <p>My last Scrobble was <a id="lastfm-title"></a></p>
                             <p>by <a id="lastfm-artist"></a></p>
                             <p>on <a id="lastfm-album"></a></p>
                         </div>
                     </div>
-                    <iframe id="spotify-embed" data-testid="embed-iframe" style="border: 0; height: 80px; margin-right: 15px;" src="https://open.spotify.com/embed/track/4PTG3Z6ehGkBFwjybzWkR8" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe id="spotify-embed" data-testid="embed-iframe" style="border: 0; height: 80px; width: 300px; margin: 15px; flex-grow: 1;" src="https://open.spotify.com/embed/track/4PTG3Z6ehGkBFwjybzWkR8" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     <script id="lastFM-script"></script>
                     <script> document.getElementById("lastFM-script").src = `${apiRoot}/lastscrobble.js` </script>
                 </div>
