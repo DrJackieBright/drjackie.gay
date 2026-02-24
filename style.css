@@ -129,6 +129,22 @@ a {
     font-size: 12pt;
 }
 
+#cli-input {
+    background-color: transparent;
+    border: none;
+    color: white;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    caret-shape: white block !important;
+    resize: vertical;
+}
+
+#cli-input:focus {
+    outline:none!important;
+    caret-shape: white block !important;
+}
+
 .cursor {
   content: '_';
   display: inline-block;
