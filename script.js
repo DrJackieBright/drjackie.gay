@@ -22,3 +22,13 @@ function fillBlinkies(elementID, folder, height=50, width=100) {
         }
     }
 }
+
+function lastFMCallback(track) {
+    console.log(track)
+    document.getElementById("spotify-embed").src = document.getElementById("spotify-embed").src.replace(/\/[^\/]*$/, "/" + track.spotify_track_ids[0])
+    document.getElementById("lastfm-title").innerText = track.name
+    document.getElementById("lastfm-title").href = track.url
+    document.getElementById("lastfm-artist").innerText = track.artist["#text"]
+    document.getElementById("lastfm-album").innerText = track.album["#text"]
+    document.getElementById("lastfm-cover").src = track.image[track.image.length - 1]["#text"]
+}

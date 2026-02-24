@@ -78,7 +78,7 @@
                     </div>
                     <iframe id="spotify-embed" data-testid="embed-iframe" style="border: 0; height: 80px; width: 300px; margin: 15px; flex-grow: 1;" src="https://open.spotify.com/embed/track/4PTG3Z6ehGkBFwjybzWkR8" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     <script id="lastFM-script"></script>
-                    <script> document.getElementById("lastFM-script").src = `${apiRoot}/lastscrobble.js` </script>
+                    <script> document.getElementById("lastFM-script").src = `${apiRoot}/lastscrobble.js?callback=lastFMCallback` </script>
                 </div>
                 
                 <div class="main fire">
