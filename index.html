@@ -63,9 +63,26 @@
                     </p>
                 </div>
 
-                <!-- <div class="main embed tumblr">
-                    <script type='text/javascript' src='https://dr-jackie.tumblr.com/js'></script>
-                </div> -->
+                <div class="main embed tumblr">
+                    <iframe 
+                        srcdoc="
+                            <head>
+                                <link rel='stylesheet' href='tumblr.css'>
+                                <base target='_blank'>
+                            </head>
+                            <body>
+                                <p style='margin-left: 20px'>My last rebog:</p>
+                                <script type='text/javascript' src='https://dr-jackie.tumblr.com/js?num=1'></script>
+                            </body>"
+                        style="width: 100%; border: 0; max-height: 50vh;"
+                        onload="embedHeight(this)"
+                    ></iframe>
+                    <script>
+                        function embedHeight(o) {
+                            o.style.height=o.contentWindow.document.body.scrollHeight+40+"px"
+                        }
+                    </script>
+                </div>
 
                 <div class="embed main" style="overflow: hidden; min-height: 125px; display: flex; align-items: center; flex-wrap: wrap;">
                     <div style="display: flex; flex-grow: 1;">

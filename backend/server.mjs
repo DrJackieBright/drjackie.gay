@@ -2,7 +2,6 @@ import express from 'express'
 import cors from 'cors'
 import https from 'https'
 import {Datastore} from '@google-cloud/datastore'
-import puppeteer from 'puppeteer'
 import { url } from 'inspector'
 
 const app = express();
@@ -19,15 +18,11 @@ var lastfm = {
 app.use(cors())
 
 app.get("/lastscrobble.js", async (req, res) => {
-  try {
     let data = await fetchLastFM()
     console.log(data)
     res.setHeader('Content-Type', 'text/javascript')
     res.setHeader('Cache-Control', 'max-age=300, stale-while-revalidate=3600, stale-if-error=3600');
     res.send(`${req.query.callback}(${JSON.stringify(data)})`)
-  } catch (error) {
-    console.error(error)
-  }
 })
 
 async function fetchLastFM() {

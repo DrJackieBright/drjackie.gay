@@ -1,0 +1,33 @@
+body {
+    color: white;
+    margin: 0px;
+    cursor: url('/images/whitepaw.png') 12 12, auto;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+a {
+    color: salmon;
+    cursor: url('/images/orangepaw.png') 12 12, pointer;
+}
+
+.post_media_photo {
+    margin: 2px;
+    max-height: 200px;
+    max-width: 30vw;
+}
+
+blockquote {
+    border-left: solid white 1px;
+    padding-left: 10px;
+    margin-left: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+blockquote>p{
+    width: 100%;
+}
+
+.tumblr_posts{
+    list-style-type: none;
+}
