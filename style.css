@@ -127,6 +127,7 @@ a {
 	text-align: left;
     font-family: monospace;
     font-size: 12pt;
+    transition: height 0.5s;
 }
 
 #cli-input {
