@@ -43,12 +43,15 @@ const commands = {
         cliReturn()
     },
     "ls": () => {
-        cliWrite(Object.keys(commands).join("\t"))
+        cliWrite(Object.keys(commands).join("     "))
         cliReturn()
     },
-    "fullscreen": () => {
-        if (cliElement.parentElement.style.height == "99vh") {
-            cliElement.parentElement.style.height = null
+    "fullscreen": (params) => {
+        if (params[0] != "true" && params[0] != "false") {
+            params[0] = cliElement.parentElement.style.height == "99vh" ? "false" : "true"
+        }
+        if (params[0] != "true" && params[0] == "false") {
+            cliElement.parentElement.style = null
             cliElement.style.height = null
             cliElement.style.resize = null
         } else {
@@ -76,18 +79,28 @@ const commands = {
         cliReturn()
     },
     "badapple.sh": () => {
+        cliElement.style.textWrap = "nowrap"
         document.getElementById("badappleframes").src = "frames.js"
-        commands["fullscreen"]()
+        commands["fullscreen"]("true")
         var frame = 1
         runningCommand = setInterval(async () => {
             if (frame >= badApple.length) {
                 clearInterval(runningCommand)
+                liElement.style.textWrap = null
                 cliReturn()
-                commands["fullscreen"]()
+                commands["fullscreen"]("false")
             }
             cliElement.value = badApple[frame]
             frame+=5
         }, 1000/30*5)
+    },
+    "reloadlastfm.sh": () => {
+        newElement = document.getElementById("lastFM-script").insertAdjacentElement("afterend", document.createElement('script'))
+        newElement.src = `\${apiRoot}/lastscrobble.js?callback=lastFMCallback` 
+        document.getElementById("lastFM-script").remove()
+        newElement.id = "lastFM-script"
+        cliWrite(document.getElementById("lastfm-title").parentElement.parentElement.innerText.replaceAll("\n", " "))
+        cliReturn()
     }
 }
 
@@ -96,6 +109,7 @@ function cliInit() {
     cliElement.value = ""
     cliContent = cliElement.value
     cliElement.addEventListener("keyup", cliInput)
+    cliElement.addEventListener("keydown", cliTab)
     cliReturn()
 }
 
@@ -120,7 +134,7 @@ function cliBell() {
 function cliInput(event) {
     // console.log(event.key)
     if (event.key == "Enter") {
-        let input = cliElement.value.toString().replace(cliContent, "").replace("\n", "")
+        let input = cliElement.value.toString().replace(cliContent, "").replaceAll("\n", "")
         let params = input.split(" ")
         let command = params.shift()
         // console.log(input)
@@ -140,6 +154,25 @@ function cliInput(event) {
     }
     if (event.key == "c" && event.ctrlKey) {
         clearInterval(runningCommand)
+        cliElement.style = null
+        cliElement.parentElement.style = null
         cliReturn()
+    }
+    if (event.key == "Tab") {
+        let input = cliElement.value.toString().replace(cliContent, "").replaceAll("\n", "")
+        let matches = Object.keys(commands).map((value) => {
+            return value.startsWith(input)
+        })
+        if (matches.filter(Boolean).length != 1) {
+            cliBell()
+        } else {
+            cliElement.value = cliContent + Object.keys(commands)[matches.findIndex(Boolean)]
+        }
+    }
+}
+
+function cliTab(event) {
+    if (event.key == "Tab") {
+        event.preventDefault()
     }
 }
