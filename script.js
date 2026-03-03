@@ -36,6 +36,8 @@ function lastFMCallback(track) {
 var cliElement
 var cliContent
 var runningCommand
+var exitRunningCommand = new Function()
+var videoSrc
 
 const commands = {
     "helloworld.sh": () => {
@@ -81,21 +83,109 @@ const commands = {
         cliWrite(eval(input.replace("exec ", "")))
         cliReturn()
     },
-    "badapple.sh": () => {
+    "badapple.sh": (params, input) => {
+        let options = {}
+
+        options.rows = params.indexOf("rows") == -1 ? 60 : parseInt(params[params.indexOf("rows") + 1])
+        options.fontSize = params.indexOf("size") == -1 ? null : params[params.indexOf("size") + 1]
+        options.blockASCII = params.indexOf("block") != -1
+        options.blur = params.indexOf("blur") != -1
+
         cliElement.style.textWrap = "nowrap"
-        document.getElementById("badappleframes").src = "frames.js"
-        commands["fullscreen"]("true")
-        var frame = 1
-        runningCommand = setInterval(async () => {
-            if (frame >= badApple.length) {
-                clearInterval(runningCommand)
-                liElement.style.textWrap = null
-                cliReturn()
-                commands["fullscreen"]("false")
+        cliElement.style.fontSize = options.fontSize
+        cliElement.rows = ((options.rows / 2) + 5) 
+        if (options.blur) cliElement.style.filter = `blur(${options.fontSize ?? "5px"})`
+        
+        // https://paulbourke.net/dataformats/asciiart/        
+        let chars = "@@@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'.   ".split("").reverse().join("")
+
+        if (options.blockASCII) {
+            chars = "██▓▓▒▒░░  ".split("").reverse().join("")
+        }
+
+        let canvas = cliElement.parentElement.insertBefore(document.createElement("canvas"), null)
+        let video = cliElement.parentElement.insertBefore(document.createElement("video"), null)
+
+        canvas.height = options.rows
+        canvas.width = Math.round(canvas.height * 4 / 3)
+        video.src = videoSrc ?? "./apple.mp4"
+        video.mute = "true"
+        video.style["display"] = "none"
+        canvas.style["display"] = "none"
+
+        console.log(canvas)
+
+        exitRunningCommand = () => {
+            canvas.remove()
+            video.remove()
+            cliElement.style.textWrap = null
+            cliElement.style.fontSize = null
+            cliElement.style.filter = null
+            runningCommand ? clearTimeout(runningCommand) : ""
+            cliElement.value = cliContent
+            cliElement.rows = cliContent.split("\n").length + 5
+            exitRunningCommand = new Function()
+        }
+
+        let ctx = canvas.getContext("2d", { willReadFrequently: true })
+
+        video.addEventListener('play', function() {
+            let $this = this; //cache
+            (function loop() {
+                if (!$this.paused && !$this.ended) {
+                ctx.drawImage($this, 0, 0, ctx.canvas.width, ctx.canvas.height);
+                renderASCII()
+                runningCommand = setTimeout(loop, 1000 / 30);
+                } else {
+                    exitRunningCommand()
+                    cliReturn()
+                }
+            })();
+        }, 0)
+
+        cliContent = cliElement.value
+        video.play()
+
+        function renderASCII() {
+            let imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height)
+            let pixels = imgData.data;
+            cliElement.value = cliContent
+            for (var i = 0; i < pixels.length; i += 4) {
+                let lightness = parseInt((pixels[i] + pixels[i + 1] + pixels[i + 2]) / 3);
+                cliElement.value += chars[Math.round(lightness / 256 * (chars.length-1))]
+                if (((i/4)+1) % ctx.canvas.width == 0) {
+                    cliElement.value += "\n"
+                    i += ctx.canvas.width*4
+                }
             }
-            cliElement.value = badApple[frame]
-            frame += 5
-        }, 1000 / 30 * 5)
+        }
+    },
+    "uploadvideo.sh": () => {
+        let fileInput = cliElement.parentElement.insertBefore(document.createElement("input"), null)
+
+        exitRunningCommand = () => {
+            fileInput.remove()
+            exitRunningCommand = new Function()
+        }
+
+        fileInput.type = "file"
+        fileInput.accept = "video/mp4"
+        // https://stackoverflow.com/a/36850152
+        fileInput.onchange = () => {
+            if (fileInput.files && fileInput.files[0]) {
+                var file = fileInput.files[0];
+                var url = URL.createObjectURL(file);
+                console.log(url);
+                var reader = new FileReader();
+                reader.onload = function() {
+                    videoSrc = url
+                    console.log(url);
+                    fileInput.remove()
+                    cliReturn()
+                }
+                reader.readAsDataURL(file);
+            }
+        }
     },
     "reloadlastfm.sh": () => {
         newElement = document.getElementById("lastFM-script").insertAdjacentElement("afterend", document.createElement('script'))
@@ -108,8 +198,13 @@ const commands = {
     "reloadtumblr.sh": () => {
         document.getElementById('tumbl').contentWindow.location.reload()
         cliReturn()
+    },
+    "cls": () => {
+        cliElement.value = ""
+        cliReturn()
     }
 }
+
 
 function cliInit() {
     cliElement = document.getElementById("cli-input")
@@ -154,6 +249,7 @@ function cliInput(event) {
             catch (error) { cliWrite("Command Failed: " + error.toString()) }
         } else {
             cliWrite("Unknown Command")
+            cliReturn()
         }
     }
     if (event.key == "Backspace") {
@@ -163,9 +259,8 @@ function cliInput(event) {
         }
     }
     if (event.key == "c" && event.ctrlKey) {
-        clearInterval(runningCommand)
-        cliElement.style = null
-        cliElement.parentElement.style = null
+        exitRunningCommand ? exitRunningCommand() : ""
+        cliWrite("")
         cliReturn()
     }
     if (event.key == "Tab") {
