@@ -14,6 +14,7 @@
 
     <body>
         <script src="script.js"></script> 
+        <script src="jackieDOS.js"></script> 
 
 <!-- Props to https://wweb.dev/resources/animated-css-background-generator -->
         <div class="background">
@@ -62,7 +63,7 @@
                     <script>cliInit()</script>
                 </div>
 
-                <div class="main embed tumblr">
+                <div class="main embed tumblr" id="tumblr-div">
                     <iframe id="tumblr-frame"
                         srcdoc="
                             <head>
@@ -71,7 +72,6 @@
                             </head>
                             <body>
                                 <p style='margin-left: 20px'>My last rebog:</p>
-                                <script type='text/javascript' src='https://dr-jackie.tumblr.com/js?num=1'></script>
                             </body>"
                         style="width: 100%; border: 0; max-height: 50vh;"
                         onload="embedHeight(this)"
@@ -92,7 +92,7 @@
                             <p>on <a id="lastfm-album"></a></p>
                         </div>
                     </div>
-                    <iframe id="spotify-embed" data-testid="embed-iframe" style="border: 0; height: 80px; width: 300px; margin: 15px; flex-grow: 1;" src="https://open.spotify.com/embed/track/4PTG3Z6ehGkBFwjybzWkR8" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe id="spotify-embed" data-testid="embed-iframe" style="border: 0; height: 80px; width: 300px; margin: 15px; flex-grow: 1;" src="" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     <script id="lastFM-script"></script>
                     <script> document.getElementById("lastFM-script").src = `${apiRoot}/lastscrobble.js?callback=lastFMCallback` </script>
                 </div>
