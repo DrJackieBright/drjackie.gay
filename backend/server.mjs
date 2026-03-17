@@ -18,15 +18,15 @@ var lastfm = {
 app.use(cors())
 
 app.get("/lastscrobble.js", async (req, res) => {
-    console.debug("==========   New request for " + req.url + "   ==========")
+    console.log("==========   New request for " + req.url + "   ==========")
     console.time(req.url)
     let data = await fetchLastFM()
     res.setHeader('Content-Type', 'text/javascript')
     res.setHeader('Cache-Control', 'max-age=300, stale-while-revalidate=3600, stale-if-error=3600');
     res.send(`${req.query.callback}(${JSON.stringify(data)})`)
     console.timeEnd(req.url)
-    console.debug("==========   Sent data   ==========")
-    console.debug(JSON.stringify(data))
+    console.log("==========   Sent data   ==========")
+    console.log(JSON.stringify(data))
 })
 
 async function fetchLastFM() {
@@ -41,18 +41,18 @@ async function fetchLastFM() {
 
 async function getSpotifyID(mbid, artist, album, track) {
   if (mbid == "") {
-    console.debug("Blank MBID")
+    console.log("Blank MBID")
     return getSpotifyIDFallback(artist, album, track)
   }
 
   let entity = await datastore.get(datastore.key(["mbid", mbid]))
   if (!(entity[0] == undefined || entity[0].spotifyTrackIDs == undefined)) {
-    console.debug("Loaded from DB")
+    console.log("Loaded from DB")
     return entity[0].spotifyTrackIDs
   } 
 
   let spotifyTrackIDs = await getSpotifyIDFallback(artist, album, track)
-  console.debug("Saving to DB")
+  console.log("Saving to DB")
   datastore.save({
     key: datastore.key(["mbid", mbid]),
     data: { spotifyTrackIDs: spotifyTrackIDs }
@@ -68,7 +68,7 @@ async function getSpotifyIDFallback(artist, album, track) {
 }
 
 async function apiRequest(requestURL, retryCount = 0) { return new Promise((resolve, reject) => {
-  console.debug("Requesting " + requestURL.href.replace(lastfm.api_key, "#####-API-KEY-#####"))
+  console.log("Requesting " + requestURL.href.replace(lastfm.api_key, "#####-API-KEY-#####"))
   https.get(requestURL, (response) => {
     response.setEncoding('utf8')
     
@@ -80,7 +80,7 @@ async function apiRequest(requestURL, retryCount = 0) { return new Promise((reso
         reject(new Error(response.statusCode))
       } else {
         resolve(output)
-        console.debug(JSON.stringify(output))
+        console.log(JSON.stringify(output))
       }
     })
   }).on('error', (error) => {
