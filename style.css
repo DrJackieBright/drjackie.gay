@@ -174,10 +174,10 @@ a {
 
 .fire {
     background: 
-        url("https://adriansblinkiecollection.neocities.org/dividers/firedivider.gif") repeat-x bottom -2px left -150px,
-        url("https://adriansblinkiecollection.neocities.org/dividers/firedivider.gif") repeat-x bottom -2px right 150px,
-        url("https://adriansblinkiecollection.neocities.org/dividers/firedivider.gif") repeat-x bottom -2px left -50px,
-        url("https://adriansblinkiecollection.neocities.org/dividers/firedivider.gif") repeat-x bottom -2px right 50px;
+        url("/images/firedivider.gif") repeat-x bottom -2px left -150px,
+        url("/images/firedivider.gif") repeat-x bottom -2px right 150px,
+        url("/images/firedivider.gif") repeat-x bottom -2px left -50px,
+        url("/images/firedivider.gif") repeat-x bottom -2px right 50px;
     background-color: black;
 }
 
